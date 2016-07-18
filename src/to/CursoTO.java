@@ -1,68 +1,33 @@
 package to;
-
 public class CursoTO {
-
-	private int codigoCurso,vagas;
-	private double valorCurso;
-	private String nomeCurso,inicioCurso,dataDeInicio,dataDeTermino,horario;
 	
-	public CursoTO(){
+	private String cod, nome, dataIni, dataTer, horario;
+	private int vagas;
+	private double valor;
 		
+	public String getCod() {
+		return cod;
 	}
-	public CursoTO(int codigoCurso, int vagas, double valorCurso, String nomeCurso, String inicioCurso,
-			String dataDeInicio, String dataDeTermino, String horario) {
-		super();
-		this.codigoCurso = codigoCurso;
-		this.vagas = vagas;
-		this.valorCurso = valorCurso;
-		this.nomeCurso = nomeCurso;
-		this.inicioCurso = inicioCurso;
-		this.dataDeInicio = dataDeInicio;
-		this.dataDeTermino = dataDeTermino;
-		this.horario = horario;
+	public void setCod(String cod) {
+		this.cod = cod;
 	}
-
-	public int getCodigoCurso() {
-		return codigoCurso;
+	public String getNome() {
+		return nome;
 	}
-	public void setCodigoCurso(int codigoCurso) {
-		this.codigoCurso = codigoCurso;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	public int getVagas() {
-		return vagas;
+	public String getDataIni() {
+		return dataIni;
 	}
-	public void setVagas(int vagas) {
-		this.vagas = vagas;
+	public void setDataIni(String dataIni) {
+		this.dataIni = dataIni;
 	}
-	public double getValorCurso() {
-		return valorCurso;
+	public String getDataTer() {
+		return dataTer;
 	}
-	public void setValorCurso(double valorCurso) {
-		this.valorCurso = valorCurso;
-	}
-	public String getNomeCurso() {
-		return nomeCurso;
-	}
-	public void setNomeCurso(String nomeCurso) {
-		this.nomeCurso = nomeCurso;
-	}
-	public String getInicioCurso() {
-		return inicioCurso;
-	}
-	public void setInicioCurso(String inicioCurso) {
-		this.inicioCurso = inicioCurso;
-	}
-	public String getDataDeInicio() {
-		return dataDeInicio;
-	}
-	public void setDataDeInicio(String dataDeInicio) {
-		this.dataDeInicio = dataDeInicio;
-	}
-	public String getDataDeTermino() {
-		return dataDeTermino;
-	}
-	public void setDataDeTermino(String dataDeTermino) {
-		this.dataDeTermino = dataDeTermino;
+	public void setDataTer(String dataTer) {
+		this.dataTer = dataTer;
 	}
 	public String getHorario() {
 		return horario;
@@ -70,6 +35,17 @@ public class CursoTO {
 	public void setHorario(String horario) {
 		this.horario = horario;
 	}
-	
-	
+	public int getVagas() {
+		return vagas;
+	}
+	public void setVagas(int vagas) {
+		this.vagas = vagas;
+	}
+	public double getValor() {
+		return valor;
+	}
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
 }
+	

@@ -4,119 +4,165 @@ import dao.AlunoDAO;
 import to.AlunoTO;
 
 public class Aluno {
-	 private int idAluno;
-	 private String nomeAluno;
-	 private String telefoneAluno;
-	 private String emailAluno;
-	 private String rGAluno;
-	 private String cPFAluno;
+	// private int idAluno;
+	 private String nome;
+	 private String telefone;
+	 private String endereco;
+	 private String email;
+	 private String rg;
+	 private int cpf;
 	
-	 public Aluno(int idAluno, String nomeAluno, String telefoneAluno, String emailAluno, String rGAluno,
-			String cPFAluno) {
+	 
+	 // Construtor com parametros
+	 
+	 public Aluno(String nome, String telefone, String email, String rg,String endereco,int cpf) {
 		super();
-		this.idAluno = idAluno;
-		this.nomeAluno = nomeAluno;
-		this.telefoneAluno = telefoneAluno;
-		this.emailAluno = emailAluno;
-		this.rGAluno = rGAluno;
-		this.cPFAluno = cPFAluno;
+		//this.idAluno = idAluno;
+		this.nome = nome;
+		this.telefone = telefone;
+		this.email = email;
+		this.rg = rg;
+		this.cpf = cpf;
 	}
 
-	public int getIdAluno() {
-		return idAluno;
+	// GETS E SETS 
+	
+	public String getNome() {
+		return nome;
 	}
 
-	public void setIdAluno(int idAluno) {
-		this.idAluno = idAluno;
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getNomeAluno() {
-		return nomeAluno;
+
+
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setNomeAluno(String nomeAluno) {
-		this.nomeAluno = nomeAluno;
+
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-	public String getTelefoneAluno() {
-		return telefoneAluno;
+
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setTelefoneAluno(String telefoneAluno) {
-		this.telefoneAluno = telefoneAluno;
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getEmailAluno() {
-		return emailAluno;
+
+
+	public String getRg() {
+		return rg;
 	}
 
-	public void setEmailAluno(String emailAluno) {
-		this.emailAluno = emailAluno;
+
+
+	public void setRg(String rg) {
+		this.rg = rg;
 	}
 
-	public String getrGAluno() {
-		return rGAluno;
+
+
+	public int getCpf() {
+		return cpf;
 	}
 
-	public void setrGAluno(String rGAluno) {
-		this.rGAluno = rGAluno;
-	}
 
-	public String getcPFAluno() {
-		return cPFAluno;
-	}
 
-	public void setcPFAluno(String cPFAluno) {
-		this.cPFAluno = cPFAluno;
+	public void setCpf(int cpf) {
+		this.cpf = cpf;
 	}
 	
-	public void criar(){
-		AlunoDAO dao = new AlunoDAO();
-		AlunoTO to = new AlunoTO();
-		to.setIdAluno(idAluno);
-		to.setTelefoneAluno(telefoneAluno);
-		to.setcPFAluno(cPFAluno);
-		to.setNomeAluno(nomeAluno);
-		to.setrGAluno(rGAluno);
-		dao.inserirAluno(to);
-	}
-	public void excluir(){
-		AlunoDAO dao = new AlunoDAO();
-		AlunoTO to = new AlunoTO();
-		to.setIdAluno(idAluno);
-		dao.excluir(to);
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void carregar(int id) {
-		AlunoDAO dao = new AlunoDAO();
-		AlunoTO to = dao.carregar(id);
-		idAluno = to.getIdAluno();
-		nomeAluno = to.getNomeAluno();
-		telefoneAluno = to.getTelefoneAluno();
-		emailAluno = to.getEmailAluno();
-		rGAluno = to.getEmailAluno();
-		cPFAluno = to.getcPFAluno();
+
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
-	public void atualizar() {
+// Metodos CRUD 
+// Cadastrar 
+	
+	public void cadastrar(){
 		AlunoDAO dao = new AlunoDAO();
 		AlunoTO to = new AlunoTO();
-		to.setIdAluno(idAluno);
-		to.setTelefoneAluno(telefoneAluno);
-		to.setcPFAluno(cPFAluno);
-		to.setNomeAluno(nomeAluno);
-		to.setrGAluno(rGAluno);
-		dao.atualizar(to);
+		//to.setId(idAluno);
+		to.setNome(nome);
+		to.setTelefone(telefone);
+		to.setEmail(email);
+		to.setEndereco(endereco);
+		to.setRg(rg);
+		to.setCpf(cpf);
+		dao.cadastrar(to);
+	}
+	
+	// Consultar
+	
+
+	public void consultar() {
+		AlunoDAO dao = new AlunoDAO();
+		AlunoTO to = dao.consultar(cpf);
+		
+		nome = to.getNome();
+		telefone = to.getTelefone();
+		email = to.getEmail();
+		endereco = to.getEndereco();
+		rg= to.getRg();
+		cpf = to.getCpf();
+	}
+
+	
+	// Alterar 
+	
+	public void alterar() {
+		AlunoDAO dao = new AlunoDAO();
+		AlunoTO to = new AlunoTO();
+		to.setNome(nome);
+		to.setTelefone(telefone);
+		to.setEndereco(endereco);
+		to.setEmail(email);
+		to.setRg(rg);
+		to.setCpf(cpf);
+		dao.alterar(to);
+		
+		System.out.println("Dados Alterados");
 	}
 	
 	
+	// Deletar
+	
+	public void deletar(){
+		AlunoDAO dao = new AlunoDAO();
+		AlunoTO to = new AlunoTO();
+		to.setCpf(cpf);
+		dao.deletar(to);
+	}
+
+	
+
+
 	@Override
 	public String toString() {
-		return "Aluno [idAluno=" + idAluno + ", nomeAluno=" + nomeAluno + ", telefoneAluno=" + telefoneAluno
-				+ ", emailAluno=" + emailAluno + ", rGAluno=" + rGAluno + ", cPFAluno=" + cPFAluno + "]";
+		return "Aluno [nome=" + nome + ", telefone=" + telefone + ", endereco=" + endereco + ", email=" + email
+				+ ", rg=" + rg + ", cpf=" + cpf + "]";
 	}
-	
-	
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -127,33 +173,36 @@ public class Aluno {
 		if (getClass() != obj.getClass())
 			return false;
 		Aluno other = (Aluno) obj;
-		if (cPFAluno == null) {
-			if (other.cPFAluno != null)
-				return false;
-		} else if (!cPFAluno.equals(other.cPFAluno))
+		if (cpf != other.cpf)
 			return false;
-		if (emailAluno == null) {
-			if (other.emailAluno != null)
+		if (email == null) {
+			if (other.email != null)
 				return false;
-		} else if (!emailAluno.equals(other.emailAluno))
+		} else if (!email.equals(other.email))
 			return false;
-		if (idAluno != other.idAluno)
-			return false;
-		if (nomeAluno == null) {
-			if (other.nomeAluno != null)
+		if (endereco == null) {
+			if (other.endereco != null)
 				return false;
-		} else if (!nomeAluno.equals(other.nomeAluno))
+		} else if (!endereco.equals(other.endereco))
 			return false;
-		if (rGAluno == null) {
-			if (other.rGAluno != null)
+		if (nome == null) {
+			if (other.nome != null)
 				return false;
-		} else if (!rGAluno.equals(other.rGAluno))
+		} else if (!nome.equals(other.nome))
 			return false;
-		if (telefoneAluno == null) {
-			if (other.telefoneAluno != null)
+		if (rg == null) {
+			if (other.rg != null)
 				return false;
-		} else if (!telefoneAluno.equals(other.telefoneAluno))
+		} else if (!rg.equals(other.rg))
+			return false;
+		if (telefone == null) {
+			if (other.telefone != null)
+				return false;
+		} else if (!telefone.equals(other.telefone))
 			return false;
 		return true;
 	}
+
+
+
 }

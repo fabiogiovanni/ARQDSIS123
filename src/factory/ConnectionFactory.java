@@ -13,8 +13,7 @@ public class ConnectionFactory {
 			throw new RuntimeException(e);
 		}
 	}
-	
 	public static Connection obtemConexao() throws SQLException{
-		return DriverManager.getConnection("jdbc:mysql://localhost/projeto?user=root&password=root");
+		return DriverManager.getConnection("jdbc:mysql://localhost/projeto_novo?user=root&password=Gio");
 	}
 }

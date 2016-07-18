@@ -1,79 +1,126 @@
 package dao;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import factory.ConnectionFactory;
-import to.CursoTO; 
-public class CursoDAO {
-	
-	public void incluir(CursoTO to){
-		String sqlInsert = "INSERT INTO Curso(id,nome,vagas,valor,dataInicio,dataTermino,horario) VALUES (?,?,?,?,?,?,?)";
-		try(Connection conn = ConnectionFactory.obtemConexao();
-				PreparedStatement stm = conn.prepareStatement(sqlInsert);){
-			stm.setInt(1, to.getCodigoCurso());
-			stm.setString(2,to.getNomeCurso());
-			stm.setInt(3,to.getVagas());
-			stm.setDouble(4,to.getValorCurso());
-			stm.setString(5,to.getDataDeInicio());
-			stm.setString(6,to.getDataDeTermino());
-			stm.setString(7,to.getHorario());
-			stm.execute();
-		}catch(SQLException e){
+import to.CursoTO;
+
+public class CursoDAO extends ConnectionFactory {
+
+	// Metodos CRUD
+	// 
+	public CursoDAO(){}
+	public void cadastrar(CursoTO to) {
+		String sql = "Insert into curso(codigo, nome, data_inicio, data_termino, horario, vagas, valor) values (?,?,?,?,?,?,?)";
+		try {
+			Connection conn = (Connection) ConnectionFactory.obtemConexao();
+			PreparedStatement pst = (PreparedStatement) conn.prepareStatement(sql);
+			pst.setString(1,to.getCod());
+			pst.setString(2,to.getNome());
+			pst.setString(3,to.getDataIni());
+			pst.setString(4,to.getDataTer());
+			pst.setString(5,to.getHorario());
+			pst.setInt(6, to.getVagas());
+			pst.setDouble(7,to.getValor());
+			pst.executeUpdate();
+			pst.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void atualizar(CursoTO to){
-		String sqlUpdate = "UPDATE Curso SET nome = ?, vagas = ?,dataInicio = ?, dataTermino = ?, horario = ?,valor = ? WHERE id = ?";
-		try(Connection conn = ConnectionFactory.obtemConexao();
-				PreparedStatement stm = conn.prepareStatement(sqlUpdate);){
-			stm.setString(1,to.getNomeCurso());
-			stm.setDouble(2,to.getValorCurso());
-			stm.setInt(3, to.getVagas());
-			stm.setString(4, to.getDataDeInicio());
-			stm.setString(5, to.getDataDeTermino());
-			stm.setString(6, to.getHorario());
-			stm.setDouble(7,to.getValorCurso());
-			stm.execute();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	public void excluir(CursoTO to){
-		String sqlDelete = "DELETE from Curso WHERE id = ?";
-		try(Connection conn = ConnectionFactory.obtemConexao();
-				PreparedStatement stm = conn.prepareStatement(sqlDelete);){
-			stm.setInt(1,to.getCodigoCurso());
-			stm.execute();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	public CursoTO carregar(int idCurso){
+	public CursoTO consultar(String cod) {
+		
 		CursoTO to = new CursoTO();
-		String sqlSelect = "SELECT nome,vagas,dataInicio,dataTermino,horario,valor from WHERE Curso.id = ?"; 
-		try(Connection conn = ConnectionFactory.obtemConexao();
-				PreparedStatement stm = conn.prepareStatement(sqlSelect);){
-			stm.setInt(1,to.getCodigoCurso());
-			try(ResultSet rs = stm.executeQuery();){
-				if(rs.next()){
-					to.setNomeCurso(rs.getString("nome"));
-					to.setVagas(rs.getInt("vagas"));
-					to.setDataDeInicio(rs.getString("dataDeInicio"));
-					to.setDataDeTermino(rs.getString("dataDeTermino"));
-					to.setHorario(rs.getString("horario"));
-					to.setValorCurso(rs.getDouble("valor"));
+
+		String sql = "select * from curso where codigo = ?";
+
+		try {
+			
+			Connection conn = ConnectionFactory.obtemConexao();
+
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, to.getCod());
+
+			ResultSet rs = pst.executeQuery();
+
+			if (rs.next()) {
+
+				to.setCod(rs.getString("codigo"));
+				to.setNome(rs.getString("nome"));
+				to.setDataIni(rs.getString("data_inicio"));
+				to.setDataTer(rs.getString("data_termino"));
+				to.setHorario(rs.getString("horario"));
+				to.setVagas(rs.getInt("vagas"));
+				to.setValor(rs.getDouble("valor"));
 				}
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}catch(Exception e1){
-			e1.printStackTrace();
+			pst.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return to;
 	}
+	public void alterar(CursoTO to) {
+		String sql = "update curso set nome=?, data_inicio=?, data_termino=?, horario=?, vagas=?, valor=? where codigo=?";
+
+		try {
+			Connection conn = ConnectionFactory.obtemConexao();
+			
+			PreparedStatement pst = conn.prepareStatement(sql);
+
+			pst.setString(1, to.getNome());
+			pst.setString(2, to.getDataIni());
+			pst.setString(3, to.getDataTer());
+			pst.setString(4, to.getHorario());
+			pst.setInt(5, to.getVagas());
+			pst.setDouble(6, to.getValor());
+			pst.setString(7, to.getCod());
+			pst.executeUpdate();
+			pst.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void deletar(CursoTO to) {
+
+		
+		String sql = "delete from curso where codigo=?";
+
+		try {
+              
+			Connection conn = ConnectionFactory.obtemConexao();
+			
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, to.getCod());
+			pst.executeUpdate();
+			pst.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }
